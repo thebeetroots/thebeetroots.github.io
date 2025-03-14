@@ -64,9 +64,10 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            height: 50px;
+            height: 200px;
             opacity: 0;
             transition: opacity 0.5s ease, transform 0.3s ease;
+            margin-top: 0px; /* Changed from -15px to 0px to shift the logo down */
         }
         .navbar-center-logo.visible {
             opacity: 1;
@@ -299,6 +300,130 @@
         .story-text p {
             margin-bottom: 20px;
         }
+        /* News section styles */
+        .news-section {
+            padding: 80px 20px;
+            background-color: #1a1a1a;
+            text-align: center;
+        }
+        .news-section h2 {
+            font-size: 2.5rem;
+            color: #e63946;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .news-slider {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .news-carousel {
+            position: relative;
+            width: 100%;
+            height: 560px; /* Increased height to accommodate cards + buttons */
+            margin: 0 auto;
+            padding-bottom: 80px; /* Increased padding at bottom */
+        }
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: calc(100% - 80px); /* Adjust height to account for nav buttons */
+            padding-bottom: 20px; /* Add padding between cards and buttons */
+        }
+        .news-card {
+            flex: 0 0 350px;
+            margin: 0 15px;
+            background-color: #252525;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            height: 350px; /* Increased height to accommodate content */
+            position: relative;
+        }
+        .news-card:hover {
+            transform: translateY(-10px);
+        }
+        /* Comment out or remove the news-img styles since we're not using them */
+        /* .news-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        } */
+        .news-info {
+            padding: 20px;
+            height: 100%;
+            position: relative;
+        }
+        .news-date {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        .news-title {
+            font-size: 1.5rem;
+            color: #e63946;
+            margin-bottom: 15px;
+        }
+        .news-excerpt {
+            color: #ddd;
+            line-height: 1.6;
+            /* Remove margin-bottom and flex properties */
+        }
+        .read-more {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px; /* Added to make button stretch */
+            text-align: center; /* Center the text */
+            padding: 8px 15px;
+            background-color: #e63946;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .read-more:hover {
+            background-color: #c1121f;
+            transform: translateY(-3px);
+        }
+        /* Carousel navigation */
+        .carousel-nav {
+            position: absolute;
+            bottom: 20px; /* Adjusted bottom position */
+            left: 0;
+            right: 0;
+            margin-top: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
+            z-index: 10;
+        }
+        .carousel-btn {
+            background-color: #e63946;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            position: relative; /* Add this to ensure hover effects work properly */
+        }
+        .carousel-btn:hover {
+            background-color: #c1121f;
+            transform: scale(1.1);
+        }
         /* Footer styles */
         footer {
             background-color: #0a0a0a;
@@ -380,18 +505,19 @@
         </div>
         
         <!-- Center logo that appears when scrolling -->
-        <img src="img/txtonly.png" alt="The Beetroots Logo" class="navbar-center-logo">
+        <img src="img/namef.png" alt="The Beetroots Logo" class="navbar-center-logo">
         <div class="navbar-links">
             <a href="#home">Home</a>
             <a href="#band-members">The Band</a>
             <a href="#band-story">Our Story</a>
+            <a href="#news">News</a>
         </div>
     </nav>
 
     <div id="home" class="hero">
         <div class="hero-content">
             <!-- Logo above the definition card -->
-            <img src="img/txtonly.png" alt="The Beetroots Logo" class="hero-logo" id="main-logo">
+            <img src="img/nameg.png" alt="The Beetroots Logo" class="hero-logo" id="main-logo">
             
             <div class="definition-card">
                 <div class="word">The Beet·roots</div>
@@ -400,7 +526,7 @@
                 </button>
                 <div class="phonetic">/T͟Hə ˌbētˌro͞ots/</div>
                 <div class="type">proper noun</div>
-                <div class="meaning">1. Nu-Metal band based in Toronto, Canada.</div>
+                <div class="meaning">1. Indie rock band based in Toronto, Canada.</div>
                 <div class="example">"Did you know beetroots are vegetables? They're also a band."</div>
             </div>
             <!-- <a href="#tour" class="cta-button">View Tour Dates</a> -->
@@ -448,13 +574,29 @@
         <h2><strong>Our Story</strong></h2>
         <div class="story-container">
             <div class="story-text">
-                <p><i>The Beetroots</i> formed in 2025 when three Toronto teens with diverse musical taste and background formed with aspirations of making a nu-metal band. What started with aspirations of making heavy or deep music with friends has evolved into every teenager's dream of forming a band with their friends to create music.</p>
+                <p><i>The Beetroots</i> formed in 2025 when three Toronto teens with diverse musical taste and background formed with aspirations of making an indie rock band. What started with aspirations of making music with friends has evolved into every teenager's dream of forming a band with their friends to create music.</p>
                 
                 <p>Drawing inspiration from bands such as Slipknot, My Chemical Romance, Arctic Monkeys, and Radiohead, <i>The Beetroots</i> have crafted a distinctive sound that resonates with fans across the musical spectrum. Their name, a playful nod to their friend group's name, the Beetroot Group, perfectly incapsulates the sense of camraderie the band has adopted towards its members and fans.</p>
                 
-                <p><i>The Beetroots</i> are committed to making great music, sticking to their independent, heavy rock/metal, and frankly emo, roots; creating music that excites the audience and pulls on your heartstrings. They are committed to authentic self-expression without judgement and showing the world their artistic visions.</p>
+                <p><i>The Beetroots</i> are committed to making great music, sticking to their independent, indie rock, and frankly emo, roots; creating music that excites the audience and pulls on your heartstrings. They are committed to authentic self-expression without judgement and showing the world their artistic visions.</p>
                 
-                <p><i>The Beetroots</i> are currently working on their debut EP, <i>The Beetroots</i> are excited to share their music to a wider audience. <i>The Beetroots</i> is all about creating music that excites crowds, pulls on your heartstrings, and frankly, music that you can violently headbang too!</p>
+                <p><i>The Beetroots</i> are currently working on their debut EP, <i>The Beetroots</i> are excited to share their music to a wider audience. <i>The Beetroots</i> is all about creating music that excites crowds, pulls on your heartstrings, and frankly, music that you can love!</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="news-section">
+        <h2><strong>Latest News</strong></h2>
+        <div class="news-slider">
+            <div class="news-carousel">
+                <div class="carousel-container" id="carousel">
+                    <!-- News cards will be added here by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="carousel-nav">
+                <button class="carousel-btn prev-btn" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-btn next-btn" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
@@ -463,8 +605,8 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <img src="img/txtonly.png" alt="The Beetroots Logo" class="footer-logo">
-                <p>Nu-Metal band based in Toronto, Canada.</p>
+                <img src="img/nameg.png" alt="The Beetroots Logo" class="footer-logo">
+                <p>Indie rock band based in Toronto, Canada.</p>
                 <div class="footer-social">
                     <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
                     <a href="https://www.instagram.com/thebeetrootsband/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -478,6 +620,7 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#band-members">The Band</a></li>
                     <li><a href="#band-story">Our Story</a></li>
+                    <li><a href="#news">News</a></li>
                 </ul>
             </div>
             
@@ -554,6 +697,114 @@
                     const scale = Math.max(0.5, 1 - scrollPercentage * 0.5);
                     const translateY = -window.scrollY * 0.3;
                     this.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                }
+            });
+            
+            // News carousel functionality
+            const newsItems = [
+                {
+                    // image: 'img/studio.jpg',
+                    alt: 'Recording Studio Session',
+                    date: 'June 15, 2025',
+                    title: 'Placeholder',
+                    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor at felis vitae fermentum. Vestibulum ante ipsum primis in faucibus orci.',
+                    link: '#'
+                },
+                {
+                    // image: 'img/live-show.jpg',
+                    alt: 'Live Performance',
+                    date: 'May 28, 2025',
+                    title: 'Placeholder',
+                    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor at felis vitae fermentum. Vestibulum ante ipsum primis in faucibus orci.',
+                    link: '#'
+                },
+                {
+                    // image: 'img/single-cover.jpg',
+                    alt: 'Single Cover Art',
+                    date: 'April 10, 2025',
+                    title: 'Placeholder',
+                    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor at felis vitae fermentum. Vestibulum ante ipsum primis in faucibus orci.',
+                    link: '#'
+                },
+                {
+                    // image: 'img/interview.jpg',
+                    alt: 'Band Interview',
+                    date: 'March 22, 2025',
+                    title: 'Placeholder',
+                    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor at felis vitae fermentum. Vestibulum ante ipsum primis in faucibus orci.',
+                    link: '#'
+                },
+                {
+                    // image: 'img/band-formation.jpg',
+                    alt: 'Band Formation',
+                    date: 'February 15, 2025',
+                    title: 'Placeholder',
+                    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor at felis vitae fermentum. Vestibulum ante ipsum primis in faucibus orci.',
+                    link: '#'
+                },
+                {
+                    // image: 'img/merch.jpg',
+                    alt: 'Formming the Beetroots',
+                    date: 'March 14, 2025',
+                    title: 'Forminng the Beetroots',
+                    excerpt: 'Hello Beetroot fans! On behalf of the band, we\'re so excited to start making music! We\'re currently working on funding instruments!',
+                    link: '#'
+                }
+            ];
+            
+            const carousel = document.getElementById('carousel');
+            let currentPosition = 0;
+            const visibleCards = 3; // Number of cards visible at once
+            const cardWidth = 380; // Width of each card including margin (350px + 30px margin)
+            
+            // Create all news cards in a horizontal row
+            function createCarousel() {
+                carousel.innerHTML = '';
+                
+                newsItems.forEach((item) => {
+                    const card = document.createElement('div');
+                    card.className = 'news-card';
+                    
+                    // Add content to the card (removed img tag)
+                    card.innerHTML = `
+                        <div class="news-info">
+                            <div class="news-date">${item.date}</div>
+                            <h3 class="news-title">${item.title}</h3>
+                            <p class="news-excerpt">${item.excerpt}</p>
+                            <a href="${item.link}" class="read-more">Read More</a>
+                        </div>
+                    `;
+                    
+                    carousel.appendChild(card);
+                });
+
+                // Initial position
+                updateCarouselPosition();
+            }
+
+            // Function to update carousel position
+            function updateCarouselPosition() {
+                carousel.style.transform = `translateX(${currentPosition * -cardWidth}px)`;
+            }
+
+            // Initialize carousel and add navigation
+            createCarousel();
+
+            // Add event listeners for navigation buttons
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+
+            prevBtn.addEventListener('click', () => {
+                if (currentPosition > 0) {
+                    currentPosition--;
+                    updateCarouselPosition();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPosition < newsItems.length - visibleCards) {
+                    currentPosition++;
+                    updateCarouselPosition();
                 }
             });
         });
