@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Beetroots</title>
     <link rel="icon" href="img/beetroot1.png" type="image/png"> <!-- Added favicon link -->
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Added Font Awesome for icons -->
     <style>
         * {
             margin: 0;
@@ -16,6 +18,77 @@
             background-color: #121212;
             color: #ffffff;
         }
+        h1, h2, h3, .word {
+            font-family: 'Rock Salt', cursive;
+        }
+        /* Navbar styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(18, 18, 18, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+        .navbar-logo {
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+        .navbar-logo:hover {
+            transform: scale(1.1);
+        }
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+            margin-left: auto; /* Push links to the right */
+        }
+        .navbar-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        .navbar-links a:hover {
+            color: #e63946;
+        }
+        /* Center logo in navbar */
+        .navbar-center-logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 50px;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.3s ease;
+        }
+        .navbar-center-logo.visible {
+            opacity: 1;
+        }
+        .navbar-center-logo:hover {
+            transform: translateX(-50%) scale(1.2);
+        }
+        /* Navbar social links */
+        .navbar-social {
+            display: flex;
+            gap: 15px;
+        }
+        .navbar-social a {
+            color: #ffffff;
+            font-size: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .navbar-social a:hover {
+            color: #e63946;
+            transform: scale(1.2);
+        }
+        /* Hero section with floating logo animation */
         .hero {
             height: 100vh;
             display: flex;
@@ -27,6 +100,7 @@
             background-position: center;
             text-align: center;
             padding: 0 20px;
+            position: relative;
         }
         .hero-content {
             max-width: 800px;
@@ -42,6 +116,14 @@
             font-size: 1.5rem;
             margin-bottom: 30px;
             line-height: 1.6;
+        }
+        .hero-logo {
+            max-width: 450px;
+            margin-bottom: 30px;
+            transition: all 0.5s ease;
+        }
+        .hero-logo:hover {
+            transform: scale(1.2);
         }
         .cta-button {
             display: inline-block;
@@ -77,12 +159,14 @@
             max-width: 500px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
         }
         .definition-card .word {
             font-size: 1.8rem;
             font-weight: bold;
             color: #e63946;
             margin-bottom: 5px;
+            padding-right: 40px; /* Make room for the button */
         }
         .definition-card .phonetic {
             font-style: italic;
@@ -101,6 +185,26 @@
             color: #666;
             font-style: italic;
         }
+        .pronunciation-btn {
+            position: absolute;
+            right: 20px; /* Position it to the right of the word */
+            top: 20px; /* Align with the word */
+            background-color: #e63946;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .pronunciation-btn:hover {
+            background-color: #c1121f;
+            transform: scale(1.1);
+        }
         .logo-image {
             max-width: 450px; /* Increased from 300px to make it expanded by default */
             cursor: pointer;
@@ -110,14 +214,190 @@
         .logo-image:hover {
             transform: scale(1.2); /* Grow on hover instead of click */
         }
+        /* Band members section styles */
+        .band-members {
+            padding: 80px 20px;
+            background-color: #1a1a1a;
+            text-align: center;
+        }
+        .band-members h2 {
+            font-size: 2.5rem;
+            color: #e63946;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .members-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .member-card {
+            background-color: #252525;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 300px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .member-card:hover {
+            transform: translateY(-10px);
+        }
+        .member-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        .member-info {
+            padding: 20px;
+        }
+        .member-name {
+            font-size: 1.8rem;
+            color: #e63946;
+            margin-bottom: 5px;
+        }
+        .member-role {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+        .member-bio {
+            color: #ddd;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        /* Band story section styles */
+        .band-story {
+            padding: 80px 20px;
+            background-color: #121212;
+            text-align: center;
+        }
+        .band-story h2 {
+            font-size: 2.5rem;
+            color: #e63946;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #252525;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .story-text {
+            color: #ddd;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+        .story-text p {
+            margin-bottom: 20px;
+        }
+        /* Footer styles */
+        footer {
+            background-color: #0a0a0a;
+            color: #aaa;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        .footer-logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        .footer-section h3 {
+            color: #e63946;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        .footer-section p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #e63946;
+        }
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .footer-social a {
+            color: #aaa;
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .footer-social a:hover {
+            color: #e63946;
+            transform: scale(1.2);
+        }
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
-    <div class="hero">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <!-- Social media icons on the left -->
+        <div class="navbar-social">
+            <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+            <a href="https://www.instagram.com/thebeetrootsband/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/channel/UCPUSWe2500w95SIJ4eVTN0A" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        
+        <!-- Center logo that appears when scrolling -->
+        <img src="img/txtonly.png" alt="The Beetroots Logo" class="navbar-center-logo">
+        <div class="navbar-links">
+            <a href="#home">Home</a>
+            <a href="#band-members">The Band</a>
+            <a href="#band-story">Our Story</a>
+        </div>
+    </nav>
+
+    <div id="home" class="hero">
         <div class="hero-content">
-            <img src="img/txtonly.png" alt="The Beetroots Logo" class="logo-image">
+            <!-- Logo above the definition card -->
+            <img src="img/txtonly.png" alt="The Beetroots Logo" class="hero-logo" id="main-logo">
+            
             <div class="definition-card">
                 <div class="word">The Beet·roots</div>
+                <button class="pronunciation-btn" aria-label="Pronounce">
+                    <i class="fas fa-volume-up"></i>
+                </button>
                 <div class="phonetic">/T͟Hə ˌbētˌro͞ots/</div>
                 <div class="type">proper noun</div>
                 <div class="meaning">1. Nu-Metal band based in Toronto, Canada.</div>
@@ -126,9 +406,157 @@
             <!-- <a href="#tour" class="cta-button">View Tour Dates</a> -->
             <div class="social-links">
                 <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/thebeetrootsband/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/channel/UCPUSWe2500w95SIJ4eVTN0A" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </div>
+
+    <section id="band-members" class="band-members">
+        <h2><strong>Meet The Band</strong></h2>
+        <div class="members-container">
+            <div class="member-card">
+                <!-- <img src="img/member1.jpg" alt="Band Member" class="member-img"> -->
+                <div class="member-info">
+                    <h3 class="member-name">Tessa</h3>
+                    <p class="member-role">Vocals</p>
+                    <p class="member-bio">Tessa is the lead vocalist for the band, <i>The Beetroots</i>. Also a musical and operatic lover, avid vocalist, choir soprano, and raging Laufey fan, Tessa has been more than ecstatic about the band!</p>
+                </div>
+            </div>
+            
+            <div class="member-card">
+                <!-- <img src="img/member2.jpg" alt="Band Member" class="member-img"> -->
+                <div class="member-info">
+                    <h3 class="member-name">Alisha</h3>
+                    <p class="member-role">Lead Guitar</p>
+                    <p class="member-bio">Alisha is the Lead Guitar for the band, <i>The Beetroots</i>. Also a fanfic reader, avid guitar fan, and marching band baritone saxophone, Alisha has been more than ecstatic about the band!</p>
+                </div>
+            </div>
+            
+            <div class="member-card">
+                <!-- <img src="img/freddurstlookin.jpg" alt="Kai, the drummer and percussionist" class="member-img"> -->
+                <div class="member-info">
+                    <h3 class="member-name">Kai</h3>
+                    <p class="member-role">Drums / Percussion</p>
+                    <p class="member-bio">Kai is the drummer and percussionist for the band, <i>The Beetroots</i>. Also an avgeek, coder, railfan, and marching band trumpet, Kai has been more than ecstatic (and delusional) about the band!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="band-story" class="band-story">
+        <h2><strong>Our Story</strong></h2>
+        <div class="story-container">
+            <div class="story-text">
+                <p><i>The Beetroots</i> formed in 2025 when three Toronto teens with diverse musical taste and background formed with aspirations of making a nu-metal band. What started with aspirations of making heavy or deep music with friends has evolved into every teenager's dream of forming a band with their friends to create music.</p>
+                
+                <p>Drawing inspiration from bands such as Slipknot, My Chemical Romance, Arctic Monkeys, and Radiohead, <i>The Beetroots</i> have crafted a distinctive sound that resonates with fans across the musical spectrum. Their name, a playful nod to their friend group's name, the Beetroot Group, perfectly incapsulates the sense of camraderie the band has adopted towards its members and fans.</p>
+                
+                <p><i>The Beetroots</i> are committed to making great music, sticking to their independent, heavy rock/metal, and frankly emo, roots; creating music that excites the audience and pulls on your heartstrings. They are committed to authentic self-expression without judgement and showing the world their artistic visions.</p>
+                
+                <p><i>The Beetroots</i> are currently working on their debut EP, <i>The Beetroots</i> are excited to share their music to a wider audience. <i>The Beetroots</i> is all about creating music that excites crowds, pulls on your heartstrings, and frankly, music that you can violently headbang too!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src="img/txtonly.png" alt="The Beetroots Logo" class="footer-logo">
+                <p>Nu-Metal band based in Toronto, Canada.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                    <a href="https://www.instagram.com/thebeetrootsband/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/channel/UCPUSWe2500w95SIJ4eVTN0A" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#band-members">The Band</a></li>
+                    <li><a href="#band-story">Our Story</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> info@thebeetroots.rocks</p>
+                <p><i class="fas fa-map-marker-alt"></i> Toronto, Canada</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 The Beetroots. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script to handle the logo animation on scroll
+        window.addEventListener('scroll', function() {
+            const mainLogo = document.getElementById('main-logo');
+            const centerLogo = document.querySelector('.navbar-center-logo');
+            const heroSection = document.getElementById('home');
+            const heroHeight = heroSection.offsetHeight;
+            const scrollPosition = window.scrollY;
+            const logoRect = mainLogo.getBoundingClientRect();
+            
+            // Check if the main logo is still visible in the viewport
+            if (logoRect.bottom < 0 || logoRect.top > window.innerHeight) {
+                // Logo is not visible, show the navbar logo
+                centerLogo.classList.add('visible');
+            } else {
+                // Logo is visible, hide the navbar logo
+                centerLogo.classList.remove('visible');
+            }
+            
+            // Calculate how far down the hero section we've scrolled (as a percentage)
+            const scrollPercentage = Math.min(scrollPosition / (heroHeight * 0.7), 1);
+            
+            // Apply transformations to the main logo based on scroll position
+            if (scrollPercentage > 0) {
+                // Scale down and move up as we scroll
+                const scale = Math.max(0.5, 1 - scrollPercentage * 0.5);
+                const translateY = -scrollPosition * 0.3;
+                mainLogo.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                
+                // Fade out gradually
+                mainLogo.style.opacity = Math.max(0, 1 - scrollPercentage * 1.5);
+            } else {
+                // Reset to original state when at the top
+                mainLogo.style.transform = 'scale(1)';
+                mainLogo.style.opacity = '1';
+            }
+        });
+        
+        // Add event listener to restore hover effect when returning to hero section
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainLogo = document.getElementById('main-logo');
+            
+            mainLogo.addEventListener('mouseenter', function() {
+                // Only apply hover effect if we're at the top of the page or the logo is visible
+                if (window.scrollY < window.innerHeight) {
+                    this.style.transform = 'scale(1.2)';
+                }
+            });
+            
+            mainLogo.addEventListener('mouseleave', function() {
+                // Return to normal or scroll-based scale when mouse leaves
+                if (window.scrollY < 10) {
+                    // If at the very top, just return to normal scale
+                    this.style.transform = 'scale(1)';
+                } else {
+                    // Otherwise, recalculate based on current scroll position
+                    const heroHeight = document.getElementById('home').offsetHeight;
+                    const scrollPercentage = Math.min(window.scrollY / (heroHeight * 0.7), 1);
+                    const scale = Math.max(0.5, 1 - scrollPercentage * 0.5);
+                    const translateY = -window.scrollY * 0.3;
+                    this.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                }
+            });
+        });
+    </script>
 </body>
+</html>
