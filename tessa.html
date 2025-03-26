@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Beetroots: Tessa</title>
+    <link rel="icon" href="img/fave.png" type="image/png"> <!-- Added favicon link -->
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Added Font Awesome for icons -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        h1, h2, h3 {
+            font-family: 'Rock Salt', cursive;
+        }
+        /* Navbar styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(18, 18, 18, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+        .navbar-logo {
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+        .navbar-logo:hover {
+            transform: scale(1.1);
+        }
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+            margin-left: auto; /* Push links to the right */
+        }
+        .navbar-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        .navbar-links a:hover {
+            color: #e63946;
+        }
+        /* Center logo in navbar */
+        .navbar-center-logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 200px;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.3s ease;
+            margin-top: 0px; /* Changed from -15px to 0px to shift the logo down */
+        }
+        .navbar-center-logo.visible {
+            opacity: 1;
+        }
+        .navbar-center-logo:hover {
+            transform: translateX(-50%) scale(1.2);
+        }
+        /* Navbar social links */
+        .navbar-social {
+            display: flex;
+            gap: 15px;
+        }
+        .navbar-social a {
+            color: #ffffff;
+            font-size: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .navbar-social a:hover {
+            color: #e63946;
+            transform: scale(1.2);
+        }
+        /* Hero section with floating logo animation */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/hbg.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .hero-content {
+            max-width: 800px;
+            animation: slideIn 1s ease-in-out; /* Added slide-in animation */
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #e63946;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .hero-logo {
+            max-width: 450px;
+            margin-bottom: 30px;
+            transition: all 0.5s ease;
+        }
+        .hero-logo:hover {
+            transform: scale(1.2);
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #e63946;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #c1121f;
+            transform: translateY(-3px);
+        }
+        .social-links {
+            margin-top: 30px;
+        }
+        .social-links a {
+            margin: 0 10px;
+            color: white;
+            font-size: 1.5rem;
+        }
+        .logo-image {
+            max-width: 450px; /* Increased from 300px to make it expanded by default */
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .logo-image:hover {
+            transform: scale(1.2); /* Grow on hover instead of click */
+        }
+        /* About Me section styles */
+        .about-me-section {
+            padding: 100px 20px;
+            /* background-color: #1a1a1a; */
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+                url('img/bg3.jpg') center/cover fixed;
+            color: white;
+        }
+        .about-me-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .about-me-heading {
+            color: #e63946;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        .band-member {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+            align-items: center;
+            justify-content: center;
+        }
+        .member-image {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+        }
+        .member-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .member-image img:hover {
+            transform: scale(1.05);
+        }
+        .member-info {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+        .member-name {
+            font-size: 2rem;
+            color: #e63946;
+            margin-bottom: 15px;
+        }
+        .member-role {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .member-bio {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .member-quote {
+            font-style: italic;
+            color: #e63946;
+            font-size: 1.1rem;
+            padding: 15px;
+            border-left: 3px solid #e63946;
+            margin: 20px 0;
+        }
+        .member-facts {
+            margin-top: 20px;
+        }
+        .member-facts h4 {
+            color: #e63946;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        .member-facts ul {
+            list-style-type: none;
+        }
+        .member-facts li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .member-facts li i {
+            color: #e63946;
+            margin-right: 10px;
+        }
+        /* Footer styles */
+        footer {
+            background-color: #0a0a0a;
+            color: #aaa;
+            padding: 60px 20px 40px; /* Increased top padding */
+            text-align: center;
+            border-top: 1px solid #252525; /* Added subtle border */
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Changed to grid layout */
+            gap: 40px; /* Increased gap */
+            align-items: start; /* Align items to top */
+        }
+        .footer-section {
+            padding: 0 20px; /* Added horizontal padding */
+        }
+        .footer-logo {
+            max-width: 300px;
+            margin-bottom: 25px;
+            opacity: 0.9; /* Slightly reduced opacity */
+            transition: opacity 0.3s ease;
+        }
+        .footer-logo:hover {
+            opacity: 1;
+        }
+        .footer-section h3 {
+            color: #e63946;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .footer-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            padding: 5px 0;
+        }
+        .footer-links a:hover {
+            color: #e63946;
+            padding-left: 5px; /* Slight shift on hover */
+        }
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .footer-social a {
+            color: #aaa;
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        .footer-social a:hover {
+            color: #e63946;
+            transform: scale(1.2);
+            opacity: 1;
+        }
+        .footer-bottom {
+            margin-top: 50px; /* Increased margin */
+            padding-top: 25px;
+            border-top: 1px solid #252525;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        .footer-section a.footer-links {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .footer-section a.footer-links:hover {
+            color: #e63946;
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <!-- Social media icons on the left -->
+        <div class="navbar-social">
+            <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+            <a href="https://www.instagram.com/thebeetrootsband/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/channel/UCPUSWe2500w95SIJ4eVTN0A" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        
+        <!-- Center logo that appears when scrolling -->
+        <img src="img/namef.png" alt="The Beetroots Logo" class="navbar-center-logo">
+        <div class="navbar-links">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#band-members">The Band</a>
+            <a href="index.html#band-story">Our Story</a>
+            <a href="index.html#news">News</a>
+            <!-- <a href="index.html#gallery">Gallery</a> -->
+        </div>
+    </nav>
+
+    <div id="home" class="hero">
+        <div class="hero-content">
+            <!-- Logo above the definition card -->
+            <img src="img/nameh.png" alt="The Beetroots Logo" class="hero-logo" id="main-logo">
+            
+            <div class="social-links">
+                <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                <a href="https://www.instagram.com/thebeetrootsband/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/channel/UCPUSWe2500w95SIJ4eVTN0A" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Me Section -->
+    <section id="about-me" class="about-me-section">
+        <div class="about-me-container">
+            <h2 class="about-me-heading">About Me</h2>
+            
+            <div class="band-member">
+                <div class="member-image">
+                    <img src="img/tessa.jpg" alt="Tessa - Vocalist" onerror="this.src='https://via.placeholder.com/400x500?text=Tessa+-+Vocalist'">
+                </div>
+                <div class="member-info">
+                    <h3 class="member-name">Tessa</h3>
+                    <p class="member-role">Lead Vocalist</p>
+                    
+                    <div class="member-bio">
+                        hi, i'm tessa! i'm the band's singer, and i'm excited to be part of the team! I was inspired by Laufey, Beabadoobea, Sierra Boggess, and many other talented artists that have brought me where i am today.</p>
+                        <br>
+                        <p>i love watching shows and movies, and researching about topics i'm interested in, like animals and musicals! i'm still a student though, who loves making fancy notes and bothering my friends <3.</p>
+                        <br>
+                        <p>I was invited to the Beetroots when Alisha and Kaimo needed a singer because they were afraid of frying their vocals (this is when we wanted to be a nu-metal band). I said yeah because why not?</p>
+                    </div>
+                    
+                    <div class="member-quote">
+                        "Did you know I can hit a C6 with head voice? Yeah, I'm a soprano."
+                    </div>
+                    
+                    <div class="member-facts">
+                        <h4>Quick Facts</h4>
+                        <ul>
+                            <li><i class="fas fa-microphone"></i> Favorite singer: Laufey</li>
+                            <li><i class="fas fa-music"></i> Musical influences: Phantom of the Opera, Laufey, Beabadoobea, Bilie Eilish</li>
+                            <li><i class="fas fa-heart"></i> Hobbies: Watching movies, cooking, and researching (nerd)</li>
+                            <li><i class="fas fa-headphones"></i> Can't live without: Noise-Cancelling Headphones, Jeans, My Phone</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src="img/foot2.png" alt="The Beetroots Logo" class="footer-logo">
+                <p><a href="index.html" class="footer-links">Indie rock band</a> based in Toronto, Canada</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                    <a href="https://www.instagram.com/thebeetrootsband/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/channel/UCPUSWe2500w95SIJ4eVTN0A" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#band-members">The Band</a></li>
+                    <li><a href="index.html#band-story">Our Story</a></li>
+                    <li><a href="index.html#news">News</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:info@thebeetroots.rocks" class="footer-links">info@thebeetroots.rocks</a></p>
+                <p><i class="fas fa-map-marker-alt"></i> <a href="https://tenor.com/en-CA/view/sorrey-gif-8824598" class="footer-links">Toronto, Canada</a></p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 The Beetroots. All rights reserved. | Website designed by your favourite drummer</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script to handle the logo animation on scroll
+        window.addEventListener('scroll', function() {
+            const mainLogo = document.getElementById('main-logo');
+            const centerLogo = document.querySelector('.navbar-center-logo');
+            const heroSection = document.getElementById('home');
+            const heroHeight = heroSection.offsetHeight;
+            const scrollPosition = window.scrollY;
+            const logoRect = mainLogo.getBoundingClientRect();
+            
+            // Check if the main logo is still visible in the viewport
+            if (logoRect.bottom < 0 || logoRect.top > window.innerHeight) {
+                // Logo is not visible, show the navbar logo
+                centerLogo.classList.add('visible');
+            } else {
+                // Logo is visible, hide the navbar logo
+                centerLogo.classList.remove('visible');
+            }
+            
+            // Calculate how far down the hero section we've scrolled (as a percentage)
+            const scrollPercentage = Math.min(scrollPosition / (heroHeight * 0.7), 1);
+            
+            // Apply transformations to the main logo based on scroll position
+            if (scrollPercentage > 0) {
+                // Scale down and move up as we scroll
+                const scale = Math.max(0.5, 1 - scrollPercentage * 0.5);
+                const translateY = -scrollPosition * 0.3;
+                mainLogo.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                
+                // Fade out gradually
+                mainLogo.style.opacity = Math.max(0, 1 - scrollPercentage * 1.5);
+            } else {
+                // Reset to original state when at the top
+                mainLogo.style.transform = 'scale(1)';
+                mainLogo.style.opacity = '1';
+            }
+        });
+        
+        // Add event listener to restore hover effect when returning to hero section
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainLogo = document.getElementById('main-logo');
+            
+            mainLogo.addEventListener('mouseenter', function() {
+                // Only apply hover effect if we're at the top of the page or the logo is visible
+                if (window.scrollY < window.innerHeight) {
+                    this.style.transform = 'scale(1.2)';
+                }
+            });
+            
+            mainLogo.addEventListener('mouseleave', function() {
+                // Return to normal or scroll-based scale when mouse leaves
+                if (window.scrollY < 10) {
+                    // If at the very top, just return to normal scale
+                    this.style.transform = 'scale(1)';
+                } else {
+                    // Otherwise, recalculate based on current scroll position
+                    const heroHeight = document.getElementById('home').offsetHeight;
+                    const scrollPercentage = Math.min(window.scrollY / (heroHeight * 0.7), 1);
+                    const scale = Math.max(0.5, 1 - scrollPercentage * 0.5);
+                    const translateY = -window.scrollY * 0.3;
+                    this.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

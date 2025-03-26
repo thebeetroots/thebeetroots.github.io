@@ -17,6 +17,7 @@
             font-family: 'Arial', sans-serif;
             background-color: #121212;
             color: #ffffff;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
         h1, h2, h3, .word {
             font-family: 'Rock Salt', cursive;
@@ -102,9 +103,19 @@
             text-align: center;
             padding: 0 20px;
             position: relative;
+            animation: fadeIn 1s ease-in-out; /* Added fade-in animation */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .hero-content {
             max-width: 800px;
+            animation: slideIn 1s ease-in-out; /* Added slide-in animation */
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         .hero-content h1 {
             font-size: 4rem;
@@ -112,6 +123,7 @@
             color: #e63946;
             text-transform: uppercase;
             letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
         }
         .hero-content p {
             font-size: 1.5rem;
@@ -136,6 +148,7 @@
             border-radius: 5px;
             text-transform: uppercase;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow */
         }
         .cta-button:hover {
             background-color: #c1121f;
@@ -150,7 +163,7 @@
             font-size: 1.5rem;
         }
         .definition-card {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent */
             color: #333333;
             border-radius: 8px;
             padding: 20px;
@@ -161,6 +174,10 @@
             margin-left: auto;
             margin-right: auto;
             position: relative;
+            transition: transform 0.3s ease; /* Added transition */
+        }
+        .definition-card:hover {
+            transform: scale(1.05); /* Scale on hover */
         }
         .definition-card .word {
             font-size: 1.8rem;
@@ -218,8 +235,13 @@
         /* Band members section styles */
         .band-members {
             padding: 80px 20px;
-            background-color: #1a1a1a;
+            /* background-color: #1a1a1a; */
             text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+                url('img/bg3.jpg') center/cover fixed;
+            color: white;
+            position: relative;
+            overflow: hidden; /* Prevent overflow */
         }
         .band-members h2 {
             font-size: 2.5rem;
@@ -227,6 +249,7 @@
             margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
         }
         .members-container {
             display: flex;
@@ -243,6 +266,7 @@
             width: 300px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
+            cursor: pointer; /* Add cursor pointer to indicate clickable */
         }
         .member-card:hover {
             transform: translateY(-10px);
@@ -251,6 +275,10 @@
             width: 100%;
             height: 300px;
             object-fit: cover;
+            transition: transform 0.3s ease; /* Added transition */
+        }
+        .member-img:hover {
+            transform: scale(1.05); /* Scale on hover */
         }
         .member-info {
             padding: 20px;
@@ -273,8 +301,11 @@
         /* Band story section styles */
         .band-story {
             padding: 80px 20px;
-            background-color: #121212;
+            /* background-color: #121212; */
             text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+                        url('img/bg5.jpg') center/cover fixed;
+            color: white;
         }
         .band-story h2 {
             font-size: 2.5rem;
@@ -282,11 +313,12 @@
             margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
         }
         .story-container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #252525;
+            background-color: rgba(37, 37, 37, 0.9); /* Slightly transparent */
             border-radius: 10px;
             padding: 30px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
@@ -300,11 +332,64 @@
         .story-text p {
             margin-bottom: 20px;
         }
+        /* Discography section styles */
+        .discography-section {
+            padding: 80px 20px;
+            text-align: center;
+            /* background-color: #1a1a1a; */
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+                        url('img/smth.jpg') center/cover fixed;
+        }
+        .discography-section h2 {
+            font-size: 2.5rem;
+            color: #e63946;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
+        }
+        .discography-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .album-card {
+            background-color: #252525;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px; /* Ensured all album cards are the same width */
+            height: 150px; /* Set a fixed height for uniformity */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .album-card:hover {
+            transform: translateY(-10px);
+        }
+        .album-title {
+            font-size: 1.8rem;
+            color: #e63946;
+            margin-bottom: 10px;
+        }
+        .release-date {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        .album-description {
+            color: #ddd;
+            line-height: 1.6;
+        }
         /* News section styles */
         .news-section {
             padding: 80px 20px;
-            background-color: #1a1a1a;
+            /* background-color: #1a1a1a; */
             text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+                        url('img/bg4.jpg') center/cover fixed;
+            color: white;
         }
         .news-section h2 {
             font-size: 2.5rem;
@@ -312,6 +397,7 @@
             margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
         }
         .news-slider {
             position: relative;
@@ -424,6 +510,99 @@
             background-color: #c1121f;
             transform: scale(1.1);
         }
+        /* Gallery section styles */
+        .gallery-section {
+            padding: 80px 20px;
+            background-color: #121212;
+            text-align: center;
+        }
+        .gallery-section h2 {
+            font-size: 2.5rem;
+            color: #e63946;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
+        }
+        .gallery-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .gallery-item {
+            flex: 1 0 200px;
+            height: 200px;
+            margin: 2px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover {
+            flex: 1 0 250px;
+            z-index: 1;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            display: block;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 2px solid #e63946;
+        }
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .close-modal:hover {
+            color: #e63946;
+            transform: scale(1.2);
+        }
+        .modal-caption {
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 1.2rem;
+        }
         /* Footer styles */
         footer {
             background-color: #0a0a0a;
@@ -530,10 +709,11 @@
         <!-- Center logo that appears when scrolling -->
         <img src="img/namef.png" alt="The Beetroots Logo" class="navbar-center-logo">
         <div class="navbar-links">
-            <a href="#home">Home</a>
-            <a href="#band-members">The Band</a>
-            <a href="#band-story">Our Story</a>
-            <a href="#news">News</a>
+            <a href="index.html#home">Home</a>
+            <a href="index.html#band-members">The Band</a>
+            <a href="index.html#band-story">Our Story</a>
+            <a href="index.html#discography">Discography</a> <!-- Added link to Discography -->
+            <a href="index.html#news">News</a>
         </div>
     </nav>
 
@@ -564,32 +744,48 @@
     <section id="band-members" class="band-members">
         <h2><strong>Meet The Band</strong></h2>
         <div class="members-container">
-            <div class="member-card">
-                <!-- <img src="img/member1.jpg" alt="Band Member" class="member-img"> -->
-                <div class="member-info">
-                    <h3 class="member-name">Tessa</h3>
-                    <p class="member-role">Vocals</p>
-                    <p class="member-bio">Tessa is the lead vocalist for the band, <i>The Beetroots</i>. Also a musical and operatic lover, avid vocalist, choir soprano, and raging Laufey fan, Tessa has been more than ecstatic about the band!</p>
+            <a href="tessa.html" style="text-decoration: none;">
+                <div class="member-card">
+                    <!-- <img src="img/member1.jpg" alt="Band Member" class="member-img"> -->
+                    <div class="member-info">
+                        <h3 class="member-name">Tessa</h3>
+                        <p class="member-role">Vocals</p>
+                        <p class="member-bio">Tessa is the lead vocalist for the band, <i>The Beetroots</i>. Also a musical and operatic lover, avid vocalist, choir soprano, and raging Laufey fan, Tessa has been more than ecstatic about the band!</p>
+                    </div>
                 </div>
-            </div>
+            </a>
             
-            <div class="member-card">
-                <!-- <img src="img/member2.jpg" alt="Band Member" class="member-img"> -->
-                <div class="member-info">
-                    <h3 class="member-name">Alisha</h3>
-                    <p class="member-role">Lead Guitar</p>
-                    <p class="member-bio">Alisha is the Lead Guitar for the band, <i>The Beetroots</i>. Also a fanfic reader, avid guitar fan, and marching band baritone saxophone, Alisha has been more than ecstatic about the band!</p>
+            <a href="alisha.html" style="text-decoration: none;">
+                <div class="member-card">
+                    <!-- <img src="img/member2.jpg" alt="Band Member" class="member-img"> -->
+                    <div class="member-info">
+                        <h3 class="member-name">Alisha</h3>
+                        <p class="member-role">Lead Guitar</p>
+                        <p class="member-bio">Alisha is the Lead Guitar for the band, <i>The Beetroots</i>. Also a fanfic reader, avid guitar fan, and marching band baritone saxophone, Alisha has been more than ecstatic about the band!</p>
+                    </div>
                 </div>
-            </div>
+            </a>
             
-            <div class="member-card">
-                <!-- <img src="img/freddurstlookin.jpg" alt="Kai, the drummer and percussionist" class="member-img"> -->
-                <div class="member-info">
-                    <h3 class="member-name">Kai</h3>
-                    <p class="member-role">Drums / Percussion</p>
-                    <p class="member-bio">Kai is the drummer and percussionist for the band, <i>The Beetroots</i>. Also an avgeek, coder, railfan, and marching band trumpet, Kai has been more than ecstatic (and delusional) about the band!</p>
+            <a href="kai.html" style="text-decoration: none;">
+                <div class="member-card">
+                    <!-- <img src="img/freddurstlookin.jpg" alt="Kai, the drummer and percussionist" class="member-img"> -->
+                    <div class="member-info">
+                        <h3 class="member-name">Kai</h3>
+                        <p class="member-role">Drums / Percussion</p>
+                        <p class="member-bio">Kai is the drummer and percussionist for the band, <i>The Beetroots</i>. Also an avgeek, coder, railfan, and marching band trumpet, Kai has been more than ecstatic (and delusional) about the band!</p>
+                    </div>
                 </div>
-            </div>
+            </a>
+            <!-- <a href="noah.html" style="text-decoration: none;">
+                <div class="member-card">
+                    <img src="img/freddurstlookin.jpg" alt="Kai, the drummer and percussionist" class="member-img">
+                    <div class="member-info">
+                        <h3 class="member-name">Noah</h3>
+                        <p class="member-role">Feature Vocalist</p>
+                        <p class="member-bio">Bro looks like Sokka from ATLA???? Always gets 90% or higher when playing vocals on rock band. Bro wears pink and reminds us of Sokka or maybe he's just buzzing cutting idk what to put here. lol placeholder</p>
+                    </div>
+                </div>
+            </a>  -->
         </div>
     </section>
 
@@ -599,11 +795,38 @@
             <div class="story-text">
                 <p><i>The Beetroots</i> formed in 2025 when three Toronto teens with diverse musical taste and background formed with aspirations of making an indie rock band. What started with aspirations of making music with friends has evolved into every teenager's dream of forming a band with their friends to create music.</p>
                 
-                <p>Drawing inspiration from bands such as Slipknot, My Chemical Romance, Arctic Monkeys, and Radiohead, <i>The Beetroots</i> have crafted a distinctive sound that resonates with fans across the musical spectrum. Their name, a playful nod to their friend group's name, the Beetroot Group, perfectly incapsulates the sense of camraderie the band has adopted towards its members and fans.</p>
+                <p>Drawing inspiration from bands such as Slipknot, My Chemical Romance, Arctic Monkeys, and Radiohead, <i>The Beetroots</i> have crafted a distinctive sound that resonates with fans across the musical spectrum. Their name, a playful nod to their friend group's name, the Beetroot Group, perfectly encapsulates the sense of camaraderie the band has adopted towards its members and fans.</p>
                 
                 <p><i>The Beetroots</i> are committed to making great music, sticking to their independent, indie rock, and frankly emo, roots; creating music that excites the audience and pulls on your heartstrings. They are committed to authentic self-expression without judgement and showing the world their artistic visions.</p>
                 
-                <p><i>The Beetroots</i> are currently working on their debut EP, <i>The Beetroots</i> are excited to share their music to a wider audience. <i>The Beetroots</i> is all about creating music that excites crowds, pulls on your heartstrings, and frankly, music that you can love!</p>
+                <p><i>The Beetroots</i> are currently working on their debut EP, <i>The Beetroots</i> are excited to share their music with a wider audience. <i>The Beetroots</i> is all about creating music that excites crowds, pulls on your heartstrings, and frankly, music that you can love!</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="discography" class="discography-section">
+        <h2><strong>Discography</strong></h2>
+        <div class="discography-container">
+            <div class="album-card">
+                <h3 class="album-title">Debut Single</h3>
+                <div class="streaming-buttons">
+                    <a href="#" aria-label="Listen on Spotify"><i class="fab fa-spotify" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
+                    <a href="#" aria-label="Listen on Apple Music"><i class="fab fa-apple" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
+                </div>
+            </div>
+            <div class="album-card">
+                <h3 class="album-title">Example EP</h3>
+                <div class="streaming-buttons">
+                    <a href="#" aria-label="Listen on Spotify"><i class="fab fa-spotify" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
+                    <a href="#" aria-label="Listen on Apple Music"><i class="fab fa-apple" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
+                </div>
+            </div>
+            <div class="album-card">
+                <h3 class="album-title">Example EP</h3>
+                <div class="streaming-buttons">
+                    <a href="#" aria-label="Listen on Spotify"><i class="fab fa-spotify" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
+                    <a href="#" aria-label="Listen on Apple Music"><i class="fab fa-apple" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
+                </div>
             </div>
         </div>
     </section>
@@ -624,11 +847,52 @@
         </div>
     </section>
 
+    <!-- Gallery Section -->
+    <!-- <section id="gallery" class="gallery-section">
+        <h2><strong>Gallery</strong></h2>
+        <div class="gallery-container">
+            Gallery items with actual images 
+            <div class="gallery-item">
+                <img src="img/freddurstlookin.jpg" alt="Band Practice" data-caption="First band practice session - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Band+Practice'">
+            </div>
+            <div class="gallery-item">
+                <img src="img/nameh.png" alt="Studio Session" data-caption="Recording our first demo - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Studio+Session'">
+            </div>
+            <div class="gallery-item">
+                <img src="img/gallery/live-performance.jpg" alt="Live Performance" data-caption="First live show at The Horseshoe Tavern - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Live+Performance'">
+            </div>
+            <div class="gallery-item">
+                <img src="img/gallery/backstage.jpg" alt="Backstage" data-caption="Backstage before our second show - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Backstage'">
+            </div>
+            <div class="gallery-item">
+                <img src="img/gallery/merch-design.jpg" alt="Merch Design" data-caption="Designing our first merch collection - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Merch+Design'">
+            </div>
+            <div class="gallery-item">
+                <img src="img/gallery/fan-meet.jpg" alt="Fan Meet" data-caption="Meeting fans after our third show - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Fan+Meet'">
+            </div>
+            <div class="gallery-item">
+                <img src="img/gallery/album-art.jpg" alt="Album Art" data-caption="Creating artwork for our debut EP - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Album+Art'">
+            </div>
+            <div class="gallery-item">
+                <img src="img/gallery/music-video.jpg" alt="Music Video" data-caption="Behind the scenes of our first music video - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Music+Video'">
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Modal for enlarged images -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modalImage" src="" alt="Enlarged image">
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <img src="img/footer.png" alt="The Beetroots Logo" class="footer-logo">
+                <img src="img/foot2.png" alt="The Beetroots Logo" class="footer-logo">
                 <p><a href="index.html" class="footer-links">Indie rock band</a> based in Toronto, Canada</p>
                 <div class="footer-social">
                     <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
@@ -640,10 +904,11 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul class="footer-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#band-members">The Band</a></li>
-                    <li><a href="#band-story">Our Story</a></li>
-                    <li><a href="#news">News</a></li>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#band-members">The Band</a></li>
+                    <li><a href="index.html#band-story">Our Story</a></li>
+                    <li><a href="index.html#discography">Discography</a></li> <!-- Added link to Discography -->
+                    <li><a href="index.html#news">News</a></li>
                 </ul>
             </div>
             
