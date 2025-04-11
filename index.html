@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Beetroots</title>
-    <link rel="icon" href="img/fave.png" type="image/png"> <!-- Added favicon link -->
-    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Added Font Awesome for icons -->
+    <link rel="icon" href="img/fave.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rock+Salt&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        @font-face {
+            font-family: 'Deardorf Drip';
+            src: url('fonts/DeardorfDrip.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -18,9 +25,13 @@
             background-color: #121212;
             color: #ffffff;
             overflow-x: hidden; /* Prevent horizontal scroll */
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(230, 57, 70, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(230, 57, 70, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
         }
         h1, h2, h3, .word {
-            font-family: 'Rock Salt', cursive;
+            font-family: 'Permanent Marker', cursive;
         }
         /* Navbar styles */
         .navbar {
@@ -301,44 +312,160 @@
         /* Band story section styles */
         .band-story {
             padding: 80px 20px;
-            /* background-color: #121212; */
             text-align: center;
             background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
                         url('img/bg5.jpg') center/cover fixed;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .band-story::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.05) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.05) 50%, transparent 52%);
+            background-size: 60px 60px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .band-story::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
         }
         .band-story h2 {
-            font-size: 2.5rem;
+            font-size: 4rem;
             color: #e63946;
             margin-bottom: 40px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+            text-align: center;
         }
         .story-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: rgba(37, 37, 37, 0.9); /* Slightly transparent */
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            max-width: 100%;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+        .story-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            overflow: hidden;
+        }
+        .story-section:nth-child(odd) {
+            flex-direction: row;
+        }
+        .story-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .story-content {
+            width: 50%;
+            padding: 60px;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+            backdrop-filter: blur(10px);
+        }
+        .story-section:nth-child(even) .story-content {
+            background: linear-gradient(to left, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+        }
+        .story-date {
+            font-size: 1.5rem;
+            color: #e63946;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .story-title {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
         }
         .story-text {
             color: #ddd;
             line-height: 1.8;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-align: left;
         }
         .story-text p {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .story-image {
+            width: 50%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+            filter: grayscale(50%);
+        }
+        .story-section:hover .story-image img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+        .story-quote {
+            font-style: italic;
+            color: #e63946;
+            font-size: 1.4rem;
+            margin: 30px 0;
+            padding: 20px;
+            position: relative;
+            border-left: 4px solid #e63946;
+            background: rgba(230, 57, 70, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        .story-quote::before {
+            content: '"';
+            font-size: 4rem;
+            color: rgba(230, 57, 70, 0.3);
+            position: absolute;
+            top: -20px;
+            left: 10px;
+        }
+        .story-quote::after {
+            content: '"';
+            font-size: 4rem;
+            color: rgba(230, 57, 70, 0.3);
+            position: absolute;
+            bottom: -20px;
+            right: 10px;
         }
         /* Discography section styles */
         .discography-section {
             padding: 80px 20px;
             text-align: center;
-            /* background-color: #1a1a1a; */
-            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
-                        url('img/smth.jpg') center/cover fixed;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                        url('img/disco.jpg') center/cover fixed;
+            position: relative;
+            overflow: hidden;
         }
         .discography-section h2 {
             font-size: 2.5rem;
@@ -348,39 +475,198 @@
             letter-spacing: 2px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
         }
+        .discography-carousel {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+            overflow: hidden;
+        }
         .discography-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
+            gap: 60px;
+            transition: transform 0.5s ease;
+            padding: 20px 0;
+            justify-content: center; /* Center the vinyl records */
             max-width: 1200px;
             margin: 0 auto;
         }
-        .album-card {
-            background-color: #252525;
-            border-radius: 10px;
-            padding: 20px;
-            width: 300px; /* Ensured all album cards are the same width */
-            height: 150px; /* Set a fixed height for uniformity */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
+        .vinyl-record {
+            flex: 0 0 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            perspective: 1000px;
         }
-        .album-card:hover {
-            transform: translateY(-10px);
+        .vinyl-info {
+            text-align: center;
+            margin-bottom: 20px;
         }
-        .album-title {
+        .vinyl-info h3 {
             font-size: 1.8rem;
             color: #e63946;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
-        .release-date {
-            font-size: 1rem;
-            color: #aaa;
-            margin-bottom: 10px;
+        .vinyl-info p {
+            color: #fff;
+            font-size: 1.1rem;
+            opacity: 0.8;
         }
-        .album-description {
-            color: #ddd;
-            line-height: 1.6;
+        .vinyl-disc {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #111, #333);
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease;
+            box-shadow: 
+                0 0 30px rgba(0,0,0,0.5),
+                inset 0 0 50px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+        /* Add grooves to the vinyl */
+        .vinyl-disc::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-radial-gradient(
+                circle at center,
+                transparent 0,
+                transparent 2px,
+                rgba(0,0,0,0.8) 2px,
+                rgba(0,0,0,0.8) 4px
+            );
+            border-radius: 50%;
+            z-index: 1;
+        }
+        /* Add center hole */
+        .vinyl-disc::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            background: #111;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+        }
+        /* Add vinyl label */
+        .vinyl-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #e63946, #c1121f);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        /* Add shine effect */
+        .vinyl-disc::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-radial-gradient(
+                    circle at center,
+                    transparent 0,
+                    transparent 2px,
+                    rgba(0,0,0,0.8) 2px,
+                    rgba(0,0,0,0.8) 4px
+                ),
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,0.1) 0%,
+                    rgba(255,255,255,0) 50%,
+                    rgba(255,255,255,0.1) 100%
+                );
+            border-radius: 50%;
+            z-index: 1;
+        }
+        /* Add depth effect */
+        .vinyl-disc {
+            transform: rotateX(10deg);
+            transition: transform 0.8s ease, box-shadow 0.8s ease;
+        }
+        .vinyl-record:hover .vinyl-disc {
+            transform: rotateX(10deg) rotateY(10deg);
+            box-shadow: 
+                0 0 30px rgba(0,0,0,0.5),
+                inset 0 0 50px rgba(0,0,0,0.8),
+                0 10px 20px rgba(0,0,0,0.3);
+        }
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(230, 57, 70, 0.2);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .carousel-arrow:hover {
+            background: rgba(230, 57, 70, 0.8);
+        }
+        .carousel-arrow.prev {
+            left: 20px;
+        }
+        .carousel-arrow.next {
+            right: 20px;
+        }
+        .streaming-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .stream-btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .stream-btn:hover {
+            background: #e63946;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230,57,70,0.3);
+        }
+        .stream-btn i {
+            margin-right: 5px;
         }
         /* News section styles */
         .news-section {
@@ -399,122 +685,84 @@
             letter-spacing: 2px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
         }
-        .news-slider {
+        .timeline {
             position: relative;
             max-width: 1200px;
             margin: 0 auto;
-            overflow: hidden;
+            padding: 40px 20px;
         }
-        .news-carousel {
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e63946;
+            transform: translateX(-50%);
+        }
+        .timeline-item {
             position: relative;
-            width: 100%;
-            height: 560px; /* Increased height to accommodate cards + buttons */
-            margin: 0 auto;
-            padding-bottom: 80px; /* Increased padding at bottom */
+            width: 45%;
+            margin: 40px 0;
+            opacity: 0;
+            transition: all 0.5s ease;
         }
-        .carousel-container {
-            display: flex;
-            transition: transform 0.5s ease;
-            height: calc(100% - 80px); /* Adjust height to account for nav buttons */
-            padding-bottom: 20px; /* Add padding between cards and buttons */
+        .timeline-item:nth-child(odd) {
+            margin-left: auto;
+            transform: translateX(50px);
         }
-        .news-card {
-            flex: 0 0 350px;
-            margin: 0 15px;
-            background-color: #252525;
+        .timeline-item:nth-child(even) {
+            transform: translateX(-50px);
+        }
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .timeline-content {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
             border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-            height: 350px; /* Increased height to accommodate content */
+            backdrop-filter: blur(10px);
             position: relative;
         }
-        .news-card:hover {
-            transform: translateY(-10px);
-        }
-        /* Comment out or remove the news-img styles since we're not using them */
-        /* .news-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        } */
-        .news-info {
-            padding: 20px;
-            height: 100%;
-            position: relative;
-        }
-        .news-date {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-bottom: 10px;
-        }
-        .news-title {
-            font-size: 1.5rem;
-            color: #e63946;
-            margin-bottom: 15px;
-        }
-        .news-excerpt {
-            color: #ddd;
-            line-height: 1.6;
-            /* Remove margin-bottom and flex properties */
-        }
-        .read-more {
+        .timeline-content::before {
+            content: '';
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px; /* Added to make button stretch */
-            text-align: center; /* Center the text */
-            padding: 8px 15px;
-            background-color: #e63946;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-        .read-more:hover {
-            background-color: #c1121f;
-            transform: translateY(-3px);
-        }
-        /* Carousel navigation */
-        .carousel-nav {
-            position: absolute;
-            bottom: 20px; /* Adjusted bottom position */
-            left: 0;
-            right: 0;
-            margin-top: 0;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 10px 0;
-            z-index: 10;
-        }
-        .carousel-btn {
-            background-color: #e63946;
-            color: white;
-            border: none;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: #e63946;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-            position: relative; /* Add this to ensure hover effects work properly */
         }
-        .carousel-btn:hover {
-            background-color: #c1121f;
-            transform: scale(1.1);
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            left: -60px;
+        }
+        .timeline-item:nth-child(even) .timeline-content::before {
+            right: -60px;
         }
         /* Gallery section styles */
         .gallery-section {
             padding: 80px 20px;
-            background-color: #121212;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                        url('img/bg2.jpg') center/cover fixed;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(230, 57, 70, 0.1) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(230, 57, 70, 0.1) 50%, transparent 52%);
+            background-size: 40px 40px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
         }
         .gallery-section h2 {
             font-size: 2.5rem;
@@ -522,36 +770,129 @@
             margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
         }
         .gallery-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
         .gallery-item {
-            flex: 1 0 200px;
-            height: 200px;
-            margin: 2px;
-            overflow: hidden;
             position: relative;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transform: scale(1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(230,57,70,0.3);
+            z-index: 2;
+        }
+        .gallery-item:hover::before {
+            opacity: 1;
         }
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .gallery-item:hover {
-            flex: 1 0 250px;
-            z-index: 1;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: grayscale(50%);
         }
         .gallery-item:hover img {
             transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            color: white;
+            text-align: left;
+            z-index: 2;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        .gallery-caption h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #e63946;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+        .gallery-caption p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .gallery-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #e63946;
+            color: #e63946;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #e63946;
+            color: white;
+        }
+        .gallery-load-more {
+            margin-top: 40px;
+            background: transparent;
+            border: 2px solid #e63946;
+            color: #e63946;
+            padding: 12px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+        .gallery-load-more:hover {
+            background: #e63946;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230,57,70,0.3);
         }
         /* Modal styles */
         .modal {
@@ -694,6 +1035,202 @@
             color: #e63946;
             padding-left: 5px;
         }
+        /* Add to your existing styles */
+        .member-spotlight {
+            display: flex;
+            align-items: center;
+            margin: 60px 0;
+            opacity: 0; /* Start hidden */
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .member-spotlight.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        /* Add this to ensure the bio animation works */
+        .member-bio {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        .member-spotlight.visible .member-bio {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .member-image {
+            flex: 0 0 400px;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            transition: all 0.5s ease;
+            min-height: 500px; /* Add this to ensure consistent height */
+        }
+        .member-spotlight:nth-child(even) .member-image {
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        .spotlight-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: grayscale(100%);
+        }
+        .member-spotlight:hover .spotlight-img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+        .member-details {
+            flex: 1;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        .member-bio h3 {
+            font-size: 2.5rem;
+            color: #e63946;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .member-bio .role {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .learn-more {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #e63946;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .learn-more::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.2),
+                transparent
+            );
+            transition: left 0.5s ease;
+        }
+        .learn-more:hover::before {
+            left: 100%;
+        }
+        /* Add spinning animation */
+        @keyframes spin {
+            from { transform: rotateX(10deg) rotate(0deg); }
+            to { transform: rotateX(10deg) rotate(360deg); }
+        }
+        .vinyl-record:hover .vinyl-disc {
+            animation: spin 4s linear infinite;
+        }
+        /* Add floating elements */
+        .discography-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(230, 57, 70, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(230, 57, 70, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        /* Add floating vinyl records in the background */
+        .discography-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="rgba(230, 57, 70, 0.1)" stroke-width="2"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.3;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+        /* Add visual elements to empty spaces */
+        .band-story::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.05) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.05) 50%, transparent 52%);
+            background-size: 60px 60px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
+        }
+        /* Add floating elements to news section */
+        .news-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        /* Add visual elements to gallery section */
+        .gallery-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(230, 57, 70, 0.1) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(230, 57, 70, 0.1) 50%, transparent 52%);
+            background-size: 40px 40px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
+        }
     </style>
 </head>
 <body>
@@ -744,140 +1281,263 @@
     <section id="band-members" class="band-members">
         <h2><strong>Meet The Band</strong></h2>
         <div class="members-container">
-            <a href="tessa.html" style="text-decoration: none;">
-                <div class="member-card">
-                    <!-- <img src="img/member1.jpg" alt="Band Member" class="member-img"> -->
-                    <div class="member-info">
-                        <h3 class="member-name">Tessa</h3>
-                        <p class="member-role">Vocals</p>
-                        <p class="member-bio">Tessa is the lead vocalist for the band, <i>The Beetroots</i>. Also a musical and operatic lover, avid vocalist, choir soprano, and raging Laufey fan, Tessa has been more than ecstatic about the band!</p>
+            <div class="member-spotlight">
+                <div class="member-image">
+                    <img src="img/tessa.jpg" alt="Tessa" class="spotlight-img">
+                    <div class="member-overlay">
+                        <h3>Tessa</h3>
+                        <p>Vocals</p>
                     </div>
                 </div>
-            </a>
-            
-            <a href="alisha.html" style="text-decoration: none;">
-                <div class="member-card">
-                    <!-- <img src="img/member2.jpg" alt="Band Member" class="member-img"> -->
-                    <div class="member-info">
-                        <h3 class="member-name">Alisha</h3>
-                        <p class="member-role">Lead Guitar</p>
-                        <p class="member-bio">Alisha is the Lead Guitar for the band, <i>The Beetroots</i>. Also a fanfic reader, avid guitar fan, and marching band baritone saxophone, Alisha has been more than ecstatic about the band!</p>
+                <div class="member-details">
+                    <div class="member-bio">
+                        <h3>Tessa</h3>
+                        <p class="role">Vocals</p>
+                        <p>Tessa is the lead vocalist for the band, <i>The Beetroots</i>. Also a musical and operatic lover, avid vocalist, choir soprano, and raging Laufey fan, Tessa has the personality and charm while singing to be in <i>the Beetroots!</i></p>
+                        <a href="tessa.html" class="learn-more">Learn More</a>
                     </div>
                 </div>
-            </a>
-            
-            <a href="kai.html" style="text-decoration: none;">
-                <div class="member-card">
-                    <!-- <img src="img/freddurstlookin.jpg" alt="Kai, the drummer and percussionist" class="member-img"> -->
-                    <div class="member-info">
-                        <h3 class="member-name">Kai</h3>
-                        <p class="member-role">Drums / Percussion</p>
-                        <p class="member-bio">Kai is the drummer and percussionist for the band, <i>The Beetroots</i>. Also an avgeek, coder, railfan, and marching band trumpet, Kai has been more than ecstatic (and delusional) about the band!</p>
+            </div>
+            <div class="member-spotlight">
+                <div class="member-image">
+                    <img src="img/lol.jpg" alt="Alisha" class="spotlight-img">
+                    <div class="member-overlay">
+                        <h3>Alisha</h3>
+                        <p>Lead Guitar</p>
                     </div>
                 </div>
-            </a>
-            <!-- <a href="noah.html" style="text-decoration: none;">
-                <div class="member-card">
-                    <img src="img/freddurstlookin.jpg" alt="Kai, the drummer and percussionist" class="member-img">
-                    <div class="member-info">
-                        <h3 class="member-name">Noah</h3>
-                        <p class="member-role">Feature Vocalist</p>
-                        <p class="member-bio">Bro looks like Sokka from ATLA???? Always gets 90% or higher when playing vocals on rock band. Bro wears pink and reminds us of Sokka or maybe he's just buzzing cutting idk what to put here. lol placeholder</p>
+                <div class="member-details">
+                    <div class="member-bio">
+                        <h3>Alisha</h3>
+                        <p class="role">Lead Guitar</p>
+                        <p>Alisha is the Lead Guitar for the band, <i>The Beetroots</i>. Also a fanfic reader, avid guitar fan, and marching band baritone saxophone, Alisha definitely has the talent, personality, and grip to be in <i>the Beetroots</i>!</p>
+                        <a href="alisha.html" class="learn-more">Learn More</a>
                     </div>
                 </div>
-            </a>  -->
+            </div>
+            <div class="member-spotlight">
+                <div class="member-image">
+                    <img src="img/scumbag.png" alt="Kai" class="spotlight-img">
+                    <div class="member-overlay">
+                        <h3>Kai</h3>
+                        <p>Drum Kit / Percussion</p>
+                    </div>
+                </div>
+                <div class="member-details">
+                    <div class="member-bio">
+                        <h3>Kai</h3>
+                        <p class="role">Drum Kit / Percussion</p>
+                        <p>Kai is the drummer and percussionist for the band, <i>The Beetroots</i>. Also an avgeek, coder, railfan, and marching band trumpet, Kai has the drumming capabilities, chops, and combination of power and speed to be in <i>the Beetroots</i>!</p>
+                        <a href="kai.html" class="learn-more">Learn More</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="band-story" class="band-story">
         <h2><strong>Our Story</strong></h2>
         <div class="story-container">
-            <div class="story-text">
-                <p><i>The Beetroots</i> formed in 2025 when three Toronto teens with diverse musical taste and background formed with aspirations of making an indie rock band. What started with aspirations of making music with friends has evolved into every teenager's dream of forming a band with their friends to create music.</p>
-                
-                <p>Drawing inspiration from bands such as Slipknot, My Chemical Romance, Arctic Monkeys, and Radiohead, <i>The Beetroots</i> have crafted a distinctive sound that resonates with fans across the musical spectrum. Their name, a playful nod to their friend group's name, the Beetroot Group, perfectly encapsulates the sense of camaraderie the band has adopted towards its members and fans.</p>
-                
-                <p><i>The Beetroots</i> are committed to making great music, sticking to their independent, indie rock, and frankly emo, roots; creating music that excites the audience and pulls on your heartstrings. They are committed to authentic self-expression without judgement and showing the world their artistic visions.</p>
-                
-                <p><i>The Beetroots</i> are currently working on their debut EP, <i>The Beetroots</i> are excited to share their music with a wider audience. <i>The Beetroots</i> is all about creating music that excites crowds, pulls on your heartstrings, and frankly, music that you can love!</p>
+            <div class="story-section">
+                <div class="story-content">
+                    <div class="story-date">March 2025</div>
+                    <h3 class="story-title">The Beginning</h3>
+                    <div class="story-text">
+                        <p>Three Toronto teens with diverse musical backgrounds came together with a shared dream: to create an indie rock band.</p>
+                        <div class="story-quote">"Did you know beetroots are vegetables? They're also a band."</div>
+                    </div>
+                </div>
+                <div class="story-image">
+                    <img src="img/eyeliner.jpg" alt="Picture of Alisha">
+                </div>
+            </div>
+            
+            <div class="story-section">
+                <div class="story-content">
+                    <div class="story-date">March 2025</div>
+                    <h3 class="story-title">Finding Our Identity</h3>
+                    <div class="story-text">
+                        <p>Drawing inspiration from bands like Slipknot, My Chemical Romance, Arctic Monkeys, and Radiohead, we began crafting our distinctive sound that would resonate with fans across the musical spectrum.</p>
+                        <p>Our name, a playful nod to our friend group's name, the Beetroot Group, perfectly encapsulated the sense of camaraderie we wanted to foster.</p>
+                    </div>
+                </div>
+                <div class="story-image">
+                    <img src="img/lol.jpg" alt="Band Practice">
+                </div>
+            </div>
+            
+            <div class="story-section">
+                <div class="story-content">
+                    <div class="story-date">April 2025</div>
+                    <h3 class="story-title">Figuring Out Our Instruments Situation</h3>
+                    <div class="story-text">
+                        <p>We're still figuring out instruments. We still require an electric guitar & amp, and hopefully a microphone and/or drum amp. We've been running off of spare cash and birthdays to get instruments so far.</p>
+                        <div class="story-quote">"We'll figure out our instrument situation."</div>
+                    </div>
+                </div>
+                <div class="story-image">
+                    <img src="img/smth.jpg" alt="Recording Session">
+                </div>
+            </div>
+            
+            <div class="story-section">
+                <div class="story-content">
+                    <div class="story-date">April 2025</div>
+                    <h3 class="story-title">Recording & Covers</h3>
+                    <div class="story-text">
+                        <p>Although we're still figuring out our instruments issue, we have a long list of songs we'd like to cover and musical ideas that could excite the world.</p>
+                        <p>We're committed to making great music, sticking to our independent, indie rock, and frankly emo, roots; creating music that excites the audience and pulls on your heartstrings.</p>
+                    </div>
+                </div>
+                <div class="story-image">
+                    <img src="img/tessa.jpg" alt="First Show">
+                </div>
+            </div>
+            
+            <div class="story-section">
+                <div class="story-content">
+                    <div class="story-date">The Future</div>
+                    <h3 class="story-title">Looking to the Future</h3>
+                    <div class="story-text">
+                        <p>We're currently working on our debut EP and excited to share our music with a wider audience. </p>
+                        <div class="story-quote">"We're excited for our music, and we're ready to make our musical ideas into songs."</div>
+                    </div>
+                </div>
+                <div class="story-image">
+                    <img src="img/scumbag.png" alt="Future Plans">
+                </div>
             </div>
         </div>
     </section>
 
     <section id="discography" class="discography-section">
         <h2><strong>Discography</strong></h2>
-        <div class="discography-container">
-            <div class="album-card">
-                <h3 class="album-title">Debut Single</h3>
-                <div class="streaming-buttons">
-                    <a href="#" aria-label="Listen on Spotify"><i class="fab fa-spotify" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
-                    <a href="#" aria-label="Listen on Apple Music"><i class="fab fa-apple" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
+        <div class="discography-carousel">
+            <button class="carousel-arrow prev" aria-label="Previous record">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <div class="discography-container">
+                <div class="vinyl-record">
+                    <div class="vinyl-info">
+                        <h3>Debut Single</h3>
+                        <p>Coming Soon</p>
+                    </div>
+                    <div class="vinyl-disc">
+                        <div class="vinyl-label">THE BEETROOTS<br>DEBUT SINGLE</div>
+                    </div>
+                    <div class="streaming-links">
+                        <a href="#" class="stream-btn"><i class="fab fa-spotify"></i> Spotify</a>
+                        <a href="#" class="stream-btn"><i class="fab fa-apple"></i> Apple Music</a>
+                    </div>
+                </div>
+
+                <div class="vinyl-record">
+                    <div class="vinyl-info">
+                        <h3>First EP</h3>
+                        <p>In Production</p>
+                    </div>
+                    <div class="vinyl-disc">
+                        <div class="vinyl-label">THE BEETROOTS<br>FIRST EP</div>
+                    </div>
+                    <div class="streaming-links">
+                        <a href="#" class="stream-btn"><i class="fab fa-spotify"></i> Spotify</a>
+                        <a href="#" class="stream-btn"><i class="fab fa-apple"></i> Apple Music</a>
+                    </div>
+                </div>
+
+                <div class="vinyl-record">
+                    <div class="vinyl-info">
+                        <h3>Future Release</h3>
+                        <p>Coming 2025</p>
+                    </div>
+                    <div class="vinyl-disc">
+                        <div class="vinyl-label">THE BEETROOTS<br>FUTURE RELEASE</div>
+                    </div>
+                    <div class="streaming-links">
+                        <a href="#" class="stream-btn"><i class="fab fa-spotify"></i> Spotify</a>
+                        <a href="#" class="stream-btn"><i class="fab fa-apple"></i> Apple Music</a>
+                    </div>
                 </div>
             </div>
-            <div class="album-card">
-                <h3 class="album-title">Example EP</h3>
-                <div class="streaming-buttons">
-                    <a href="#" aria-label="Listen on Spotify"><i class="fab fa-spotify" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
-                    <a href="#" aria-label="Listen on Apple Music"><i class="fab fa-apple" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
-                </div>
-            </div>
-            <div class="album-card">
-                <h3 class="album-title">Example EP</h3>
-                <div class="streaming-buttons">
-                    <a href="#" aria-label="Listen on Spotify"><i class="fab fa-spotify" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
-                    <a href="#" aria-label="Listen on Apple Music"><i class="fab fa-apple" style="color: white; transition: color 0.3s ease;" onmouseover="this.style.color='#c1121f'" onmouseout="this.style.color='white'"></i></a>
-                </div>
-            </div>
+
+            <button class="carousel-arrow next" aria-label="Next record">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
     </section>
 
     <section id="news" class="news-section">
         <h2><strong>Latest News</strong></h2>
-        <div class="news-slider">
-            <div class="news-carousel">
-                <div class="carousel-container" id="carousel">
-                    <!-- News cards will be added here by JavaScript -->
-                </div>
-            </div>
-            
-            <div class="carousel-nav">
-                <button class="carousel-btn prev-btn" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-                <button class="carousel-btn next-btn" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+        <div class="timeline">
+            <div class="timeline-line"></div>
+            <div class="timeline-items">
+                <!-- Timeline items will be added by JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- Gallery Section -->
-    <!-- <section id="gallery" class="gallery-section">
-        <h2><strong>Gallery</strong></h2>
+    <section class="gallery-section" id="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-filter">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="live">Live</button>
+            <button class="filter-btn" data-filter="behind-scenes">Behind Scenes</button>
+            <button class="filter-btn" data-filter="studio">Studio</button>
+        </div>
         <div class="gallery-container">
-            Gallery items with actual images 
-            <div class="gallery-item">
-                <img src="img/freddurstlookin.jpg" alt="Band Practice" data-caption="First band practice session - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Band+Practice'">
+            <div class="gallery-item" data-category="behind-scenes">
+                <img src="img/freddurstlookin.jpg" alt="Drummer mans" onerror="this.src='https://via.placeholder.com/400x400?text=Live+Performance'">
+                <div class="gallery-caption">
+                    <h3>Drummer</h3>
+                    <p>He looks like Fred Durst. I see it.</p>
+                </div>
             </div>
-            <div class="gallery-item">
-                <img src="img/nameh.png" alt="Studio Session" data-caption="Recording our first demo - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Studio+Session'">
+            <div class="gallery-item" data-category="behind-scenes">
+                <img src="img/nameh.png" alt="Logo, base on Grafitti Art" onerror="this.src='https://via.placeholder.com/400x400?text=Behind+Scenes'">
+                <div class="gallery-caption">
+                    <h3>Logo</h3>
+                    <p>Logo of The Beetroots. Based on Grafitti Art.</p>
+                </div>
             </div>
-            <div class="gallery-item">
-                <img src="img/gallery/live-performance.jpg" alt="Live Performance" data-caption="First live show at The Horseshoe Tavern - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Live+Performance'">
+            <div class="gallery-item" data-category="behind-scenes">
+                <img src="img/tessa.jpg" alt="Singer girl" onerror="this.src='https://via.placeholder.com/400x400?text=Studio+Time'">
+                <div class="gallery-caption">
+                    <h3>Singer</h3>
+                    <p>0.5x photos are so silly.</p>
+                </div>
             </div>
-            <div class="gallery-item">
-                <img src="img/gallery/backstage.jpg" alt="Backstage" data-caption="Backstage before our second show - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Backstage'">
+            <div class="gallery-item" data-category="behind-scenes">
+                <img src="img/lol.jpg" alt="Guitar girlie" onerror="this.src='https://via.placeholder.com/400x400?text=Live+Show'">
+                <div class="gallery-caption">
+                    <h3>Lead Guitar</h3>
+                    <p>0.5x photos are still silly.</p>
+                </div>
             </div>
-            <div class="gallery-item">
-                <img src="img/gallery/merch-design.jpg" alt="Merch Design" data-caption="Designing our first merch collection - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Merch+Design'">
+            <div class="gallery-item" data-category="behind-scenes">
+                <img src="img/scumbag.png" alt="Drummer mans again" onerror="this.src='https://via.placeholder.com/400x400?text=Band+Practice'">
+                <div class="gallery-caption">
+                    <h3>Drummer pt.2</h3>
+                    <p>0.5x photos are always silly.</p>
+                </div>
             </div>
-            <div class="gallery-item">
-                <img src="img/gallery/fan-meet.jpg" alt="Fan Meet" data-caption="Meeting fans after our third show - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Fan+Meet'">
+            <div class="gallery-item" data-category="studio">
+                <img src="img/smth.jpg" alt="Stock photo from pexels.com" onerror="this.src='https://via.placeholder.com/400x400?text=Studio+Session'">
+                <div class="gallery-caption">
+                    <h3>Stock Image</h3>
+                    <p>Taken from pexels.com</p>
+                </div>
             </div>
-            <div class="gallery-item">
-                <img src="img/gallery/album-art.jpg" alt="Album Art" data-caption="Creating artwork for our debut EP - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Album+Art'">
-            </div>
-            <div class="gallery-item">
-                <img src="img/gallery/music-video.jpg" alt="Music Video" data-caption="Behind the scenes of our first music video - 2025" onerror="this.src='https://via.placeholder.com/400x400?text=Music+Video'">
+            <div class="gallery-item" data-category="behind-scenes">
+                <img src="img/eyeliner.JPG" alt="Guitar girl pt.2" onerror="this.src='https://via.placeholder.com/400x400?text=Studio+Session'">
+                <div class="gallery-caption">
+                    <h3>Guitar girlie</h3>
+                    <p>So much eyeliner.</p>
+                </div>
             </div>
         </div>
-    </section> -->
+        <button class="gallery-load-more">Load More</button>
+    </section>
 
     <!-- Modal for enlarged images -->
     <div class="modal" id="imageModal">
@@ -1040,60 +1700,193 @@
                 }
             ];
             
-            const carousel = document.getElementById('carousel');
-            let currentPosition = 0;
-            const visibleCards = 3; // Number of cards visible at once
-            const cardWidth = 380; // Width of each card including margin (350px + 30px margin)
+            const timelineContainer = document.querySelector('.timeline-items');
             
-            // Create all news cards in a horizontal row
-            function createCarousel() {
-                carousel.innerHTML = '';
+            newsItems.forEach((item) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'timeline-item';
                 
-                newsItems.forEach((item) => {
-                    const card = document.createElement('div');
-                    card.className = 'news-card';
-                    
-                    // Add content to the card (removed img tag)
-                    card.innerHTML = `
-                        <div class="news-info">
-                            <div class="news-date">${item.date}</div>
-                            <h3 class="news-title">${item.title}</h3>
-                            <p class="news-excerpt">${item.excerpt}</p>
-                            <a href="${item.link}" class="read-more">Read More</a>
-                        </div>
-                    `;
-                    
-                    carousel.appendChild(card);
+                timelineItem.innerHTML = `
+                    <div class="timeline-content">
+                        <div class="news-date">${item.date}</div>
+                        <h3 class="news-title">${item.title}</h3>
+                        <p class="news-excerpt">${item.excerpt}</p>
+                        <a href="${item.link}" class="learn-more">Read More</a>
+                    </div>
+                `;
+                
+                timelineContainer.appendChild(timelineItem);
+            });
+
+            // Add intersection observer for animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
                 });
+            }, { threshold: 0.3 });
 
-                // Initial position
-                updateCarouselPosition();
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                observer.observe(item);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create intersection observer for member spotlights
+            const memberObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        console.log('Member section in view'); // Debug log
+                        entry.target.classList.add('visible');
+                        const bio = entry.target.querySelector('.member-bio');
+                        if (bio) {
+                            setTimeout(() => {
+                                bio.style.opacity = '1';
+                                bio.style.transform = 'translateY(0)';
+                            }, 300);
+                        }
+                    }
+                });
+            }, { 
+                threshold: 0.2,
+                rootMargin: '0px'
+            });
+
+            // Observe all member spotlights
+            const members = document.querySelectorAll('.member-spotlight');
+            members.forEach(member => {
+                console.log('Observing member:', member); // Debug log
+                memberObserver.observe(member);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.discography-container');
+            const records = document.querySelectorAll('.vinyl-record');
+            const prevBtn = document.querySelector('.carousel-arrow.prev');
+            const nextBtn = document.querySelector('.carousel-arrow.next');
+            let currentIndex = 0;
+            const recordWidth = 360; // Width + gap
+
+            // Initially hide prev button
+            prevBtn.style.opacity = '0.5';
+            prevBtn.style.cursor = 'not-allowed';
+
+            function updateCarousel() {
+                container.style.transform = `translateX(-${currentIndex * recordWidth}px)`;
+                
+                // Update button states
+                prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+                prevBtn.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
+                
+                nextBtn.style.opacity = currentIndex >= records.length - 3 ? '0.5' : '1';
+                nextBtn.style.cursor = currentIndex >= records.length - 3 ? 'not-allowed' : 'pointer';
             }
-
-            // Function to update carousel position
-            function updateCarouselPosition() {
-                carousel.style.transform = `translateX(${currentPosition * -cardWidth}px)`;
-            }
-
-            // Initialize carousel and add navigation
-            createCarousel();
-
-            // Add event listeners for navigation buttons
-            const prevBtn = document.querySelector('.prev-btn');
-            const nextBtn = document.querySelector('.next-btn');
 
             prevBtn.addEventListener('click', () => {
-                if (currentPosition > 0) {
-                    currentPosition--;
-                    updateCarouselPosition();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
                 }
             });
 
             nextBtn.addEventListener('click', () => {
-                if (currentPosition < newsItems.length - visibleCards) {
-                    currentPosition++;
-                    updateCarouselPosition();
+                if (currentIndex < records.length - 3) {
+                    currentIndex++;
+                    updateCarousel();
                 }
+            });
+
+            // Add spinning animation on hover
+            records.forEach(record => {
+                const disc = record.querySelector('.vinyl-disc');
+                record.addEventListener('mouseenter', () => {
+                    disc.style.animation = 'spin 4s linear infinite';
+                });
+                record.addEventListener('mouseleave', () => {
+                    disc.style.animation = 'none';
+                    disc.style.transform = 'rotateX(10deg)';
+                });
+            });
+        });
+
+        // Gallery functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const loadMoreBtn = document.querySelector('.gallery-load-more');
+            let currentFilter = 'all';
+            let visibleItems = 6;
+
+            // Filter functionality
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // Get filter category
+                    currentFilter = button.getAttribute('data-filter');
+
+                    // Filter items
+                    galleryItems.forEach(item => {
+                        if (currentFilter === 'all' || item.getAttribute('data-category') === currentFilter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
+                    // Reset visible items count
+                    visibleItems = 6;
+                    updateLoadMoreButton();
+                });
+            });
+
+            // Load more functionality
+            function updateLoadMoreButton() {
+                const visibleItemsCount = document.querySelectorAll('.gallery-item[style="display: block"]').length;
+                const totalItems = galleryItems.length;
+                
+                if (visibleItemsCount >= totalItems) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    loadMoreBtn.style.display = 'block';
+                }
+            }
+
+            loadMoreBtn.addEventListener('click', () => {
+                visibleItems += 6;
+                galleryItems.forEach((item, index) => {
+                    if (index < visibleItems && (currentFilter === 'all' || item.getAttribute('data-category') === currentFilter)) {
+                        item.style.display = 'block';
+                    }
+                });
+                updateLoadMoreButton();
+            });
+
+            // Initialize gallery
+            updateLoadMoreButton();
+        });
+
+        // Story section animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const storyObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { 
+                threshold: 0.2,
+                rootMargin: '0px'
+            });
+
+            // Observe all story events
+            const storyEvents = document.querySelectorAll('.story-event');
+            storyEvents.forEach(event => {
+                storyObserver.observe(event);
             });
         });
     </script>

@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Beetroots: Tessa</title>
     <link rel="icon" href="img/fave.png" type="image/png"> <!-- Added favicon link -->
-    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rock+Salt&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Added Font Awesome for icons -->
     <style>
+        @font-face {
+            font-family: 'Deardorf Drip';
+            src: url('fonts/DeardorfDrip.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -19,8 +26,8 @@
             color: #ffffff;
             overflow-x: hidden; /* Prevent horizontal scroll */
         }
-        h1, h2, h3 {
-            font-family: 'Rock Salt', cursive;
+        h1, h2, h3, .word {
+            font-family: 'Permanent Marker', cursive;
         }
         /* Navbar styles */
         .navbar {
@@ -170,10 +177,10 @@
         }
         /* About Me section styles */
         .about-me-section {
+            position: relative;
             padding: 100px 20px;
-            /* background-color: #1a1a1a; */
             background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
-                url('img/bg3.jpg') center/cover fixed;
+                        url('img/bg3.jpg') center/cover fixed;
             color: white;
         }
         .about-me-container {
@@ -192,6 +199,13 @@
             text-align: center;
         }
         .band-member {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-wrap: wrap;
             gap: 40px;
@@ -199,68 +213,120 @@
             align-items: center;
             justify-content: center;
         }
+        .band-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #e63946, transparent);
+        }
         .member-image {
+            position: relative;
             flex: 1;
             min-width: 300px;
             max-width: 400px;
         }
         .member-image img {
             width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
+            border-radius: 20px;
+            transition: all 0.5s ease;
+            filter: grayscale(100%);
         }
-        .member-image img:hover {
-            transform: scale(1.05);
+        .member-image:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+        .member-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            box-shadow: inset 0 0 20px rgba(230,57,70,0.3);
+            pointer-events: none;
         }
         .member-info {
+            position: relative;
+            padding: 30px;
             flex: 1;
             min-width: 300px;
             max-width: 600px;
         }
         .member-name {
-            font-size: 2rem;
-            color: #e63946;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #e63946, #ff4d5d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         .member-role {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: #aaa;
-            margin-bottom: 20px;
-            font-style: italic;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
         }
         .member-bio {
-            line-height: 1.8;
             font-size: 1.1rem;
-            margin-bottom: 20px;
+            line-height: 1.8;
+            color: #ddd;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid rgba(230,57,70,0.3);
         }
         .member-quote {
-            font-style: italic;
+            background: rgba(230,57,70,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+            font-size: 1.2rem;
+        }
+        .member-quote::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 4rem;
             color: #e63946;
-            font-size: 1.1rem;
-            padding: 15px;
-            border-left: 3px solid #e63946;
-            margin: 20px 0;
+            opacity: 0.3;
         }
         .member-facts {
-            margin-top: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
         }
         .member-facts h4 {
             color: #e63946;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         .member-facts ul {
-            list-style-type: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
         .member-facts li {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .member-facts li:hover {
+            background: rgba(230,57,70,0.1);
+            transform: translateY(-3px);
         }
         .member-facts li i {
+            font-size: 1.2rem;
+            margin-right: 15px;
             color: #e63946;
-            margin-right: 10px;
         }
         /* Footer styles */
         footer {
@@ -353,6 +419,24 @@
             color: #e63946;
             padding-left: 5px;
         }
+        /* Add smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Add responsive adjustments */
+        @media (max-width: 768px) {
+            .band-member {
+                padding: 20px;
+            }
+            
+            .member-name {
+                font-size: 2.5rem;
+            }
+            
+            .member-facts ul {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -371,6 +455,7 @@
             <a href="index.html#home">Home</a>
             <a href="index.html#band-members">The Band</a>
             <a href="index.html#band-story">Our Story</a>
+            <a href="index.html#discography">Discography</a> <!-- Added link to Discography -->
             <a href="index.html#news">News</a>
             <!-- <a href="index.html#gallery">Gallery</a> -->
         </div>
@@ -407,7 +492,7 @@
                         <br>
                         <p>i love watching shows and movies, and researching about topics i'm interested in, like animals and musicals! i'm still a student though, who loves making fancy notes and bothering my friends <3.</p>
                         <br>
-                        <p>I was invited to the Beetroots when Alisha and Kaimo needed a singer because they were afraid of frying their vocals (this is when we wanted to be a nu-metal band). I said yeah because why not?</p>
+                        <p>i was invited to the Beetroots when alisha and kai needed a singer because they were afraid of frying their vocals (this is when we wanted to be a nu-metal band).</p>
                     </div>
                     
                     <div class="member-quote">
@@ -447,6 +532,7 @@
                     <li><a href="index.html#home">Home</a></li>
                     <li><a href="index.html#band-members">The Band</a></li>
                     <li><a href="index.html#band-story">Our Story</a></li>
+                    <li><a href="index.html#discography">Discography</a></li>
                     <li><a href="index.html#news">News</a></li>
                 </ul>
             </div>
