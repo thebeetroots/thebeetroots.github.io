@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Beetroots - About</title>
+    <link rel="icon" href="img/fave.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
+            font-weight: 300;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .content {
+            padding: 120px 40px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .about-text {
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 60px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .members-section {
+            margin-top: 60px;
+        }
+
+        .members-title {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .member {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+            animation-delay: calc(var(--delay) * 0.2s);
+        }
+
+        .member-name {
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .member-role {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .member-bio {
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 100px 20px 20px;
+            }
+            
+            .about-text {
+                font-size: 0.9rem;
+            }
+
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="music.html">Music</a>
+            <a href="about-members.html">About</a>
+            <a href="index2.html">More Info</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="about-text">
+            <p>The Beetroots is the musical brainchild of Tessa, Alisha, and Kai, the three founding members of the Beetroots. The Beetroots is dedicated to crafting a distinctive independent sound that allows the Beetroots to fully express their music.</p>
+            
+            <p>Our music is like no other, with members from marching, operatic, choir, and other diverse musical backgrounds. Our band remains independent to be able to experiment with the boundless limits of musical creation..</p>
+            
+            <p>Through our music, we create an experience, not just a song. An experience that traverses through mindscapes, challenging your previous thoughts on what music was. We are like no other.</p>
+        </div>
+
+        <div class="members-section">
+            <h2 class="members-title">Members</h2>
+            <div class="members-grid">
+                <div class="member" style="--delay: 1">
+                    <h3 class="member-name">Tessa</h3>
+                    <div class="member-role">Vocals, Piano</div>
+                    <p class="member-bio">Lead Vocals, Tessa brings her unique vision and emotional depth to every composition.</p>
+                </div>
+                <div class="member" style="--delay: 2">
+                    <h3 class="member-name">Alisha</h3>
+                    <div class="member-role">Lead Guitar</div>
+                    <p class="member-bio">Alisha's driving guitar lines and tones create the foundation of our distinctive sound.</p>
+                </div>
+                <div class="member" style="--delay: 3">
+                    <h3 class="member-name">Kai</h3>
+                    <div class="member-role">Drums, Percussion, Production</div>
+                    <p class="member-bio">Kai's subtle and precise drumming adds the perfect rhythmic foundation to our compositions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Beetroots - Discography</title>
+    <link rel="icon" href="img/fave.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
+            font-weight: 300;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .content {
+            padding: 120px 40px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .album {
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .album-title {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .album-year {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .album-tracks {
+            list-style: none;
+        }
+
+        .album-tracks li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 100px 20px 20px;
+            }
+            
+            .album-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="music.html">Music</a>
+            <a href="about-members.html">About</a>
+            <a href="index2.html">More Info</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="album">
+            <h2 class="album-title">SELF-TITLED</h2>
+            <div class="album-year">2025</div>
+            <ul class="album-tracks">
+                <li>1. Track One</li>
+                <li>2. Track Two</li>
+                <li>3. Track Three</li>
+                <li>4. Track Four</li>
+                <li>5. Track Five</li>
+            </ul>
+        </div>
+
+        <div class="album">
+            <h2 class="album-title">PLANNED EP</h2>
+            <div class="album-year">PLANNED</div>
+            <ul class="album-tracks">
+                <li>1. Track One</li>
+                <li>2. Track Two</li>
+                <li>3. Track Three</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
